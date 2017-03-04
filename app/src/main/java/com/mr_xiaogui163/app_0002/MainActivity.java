@@ -27,32 +27,40 @@ public class MainActivity extends AppCompatActivity {
             case R.id.LED1:
                 if(checked){
                     Toast.makeText(getApplicationContext(), "LED1 ON", Toast.LENGTH_SHORT).show();
+                    HardControl.ledCtrl(0, 1);
                 }else{
                     Toast.makeText(getApplicationContext(), "LED1 OFF", Toast.LENGTH_SHORT).show();
+                    HardControl.ledCtrl(0, 0);
                 }
                 break;
 
             case R.id.LED2:
                 if(checked){
                     Toast.makeText(getApplicationContext(), "LED2 ON", Toast.LENGTH_SHORT).show();
+                    HardControl.ledCtrl(1, 1);
                 }else{
                     Toast.makeText(getApplicationContext(), "LED2 OFF", Toast.LENGTH_SHORT).show();
+                    HardControl.ledCtrl(1, 0);
                 }
                 break;
 
             case R.id.LED3:
                 if(checked){
                     Toast.makeText(getApplicationContext(), "LED31 ON",Toast.LENGTH_SHORT).show();
+                    HardControl.ledCtrl(2, 1);
                 }else{
                     Toast.makeText(getApplicationContext(), "LED3 OFF",Toast.LENGTH_SHORT).show();
+                    HardControl.ledCtrl(2, 0);
                 }
                 break;
 
             case R.id.LED4:
                 if(checked){
                     Toast.makeText(getApplicationContext(), "LED4 ON",Toast.LENGTH_SHORT).show();
+                    HardControl.ledCtrl(3, 1);
                 }else{
                     Toast.makeText(getApplicationContext(), "LED4 OFF",Toast.LENGTH_SHORT).show();
+                    HardControl.ledCtrl(3, 0);
                 }
                 break;
         }
@@ -61,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
     class MyButtonListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            HardControl hardControl = new HardControl();
             AllLedOn = !AllLedOn;
             if(AllLedOn){
                 button.setText("ALL LED OFF");
@@ -70,12 +77,16 @@ public class MainActivity extends AppCompatActivity {
                 checkBoxLed3.setChecked(true);
                 checkBoxLed4.setChecked(true);
 
+                for (int i = 0; i < 4; i++)
+                    HardControl.ledCtrl(i,1);
             }else {
                 button.setText("ALL LED ON");
                 checkBoxLed1.setChecked(false);
                 checkBoxLed2.setChecked(false);
                 checkBoxLed3.setChecked(false);
                 checkBoxLed4.setChecked(false);
+                for (int i = 0; i < 4; i++)
+                    HardControl.ledCtrl(i,0);
             }
         }
     }
@@ -84,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        HardControl.ledOpen();
         button = (Button) findViewById(R.id.BUTTON);
         checkBoxLed1 = (CheckBox) findViewById(R.id.LED1);
         checkBoxLed2 = (CheckBox) findViewById(R.id.LED2);
